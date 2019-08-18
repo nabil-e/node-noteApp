@@ -22,7 +22,7 @@ const addNote = (title, body) => {
     
 }
 const removeNote = (title) => {
-    const notes = loadNote()
+    const notes = loadNotes()
     const noteToKeep = notes.filter((note) => note.title !== title)
     
     if(notes.length > noteToKeep.length){
@@ -31,6 +31,14 @@ const removeNote = (title) => {
     }else{
         console.log(erreur(`${title} not found`))
     }
+}
+
+const listNotes = () => {
+    console.log(chalk.bgBlue('Yours notes'))
+    const notes = loadNotes()
+    notes.forEach(note => {
+        console.log(`${note.title}: ${note.body}`)        
+    })
 }
 
 const saveNotes = (notes) => fs.writeFileSync('notes.json', JSON.stringify(notes))
@@ -62,6 +70,7 @@ module.exports = {
     deleteFile: deleteFile,
     getNotes: getNotes,
     addNote: addNote,
-    removeNote: removeNote
+    removeNote: removeNote,
+    listNotes: listNotes
 }
 // module.exports = {getNotes, deleteFile}
